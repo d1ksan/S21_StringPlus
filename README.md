@@ -1,2 +1,15 @@
-# S21_StringPlus
-Implementation of the string.h library in C programming language with some additions (with own implementation of sprintf and sscanf functions)
+## Implementation string.h 
+
+**Командный проект по реализации стандартной библиотеки string.h на языке C**
+
+### 👥 Команда
+- bulakath - функции mem*, strncpy, strlen
+- josefbar - sprintf и sscanf
+- tyberoru - поисковые функции, strtok
+- karrenkr - специальные функции, Makefile + тесты
+
+### 🎯 Цели проекта
+- Реализация всех функций string.h
+- Частичная реализация sprintf
+- Unit-тесты с покрытием >80%
+- Сборка статической библиотеки
