@@ -445,6 +445,204 @@ START_TEST(memcpy_long_string_with_register_and_num_and_simbol) {
 }
 END_TEST
 
+/* ========== ТЕСТЫ ДЛЯ s21_memchr ========== */
+
+START_TEST(memchr_1) {
+    char str[] = "Hello w\0orld\0";
+    ck_assert_pstr_eq(memchr(str, 'r', 5), s21_memchr(str, 'r', 5));
+}
+END_TEST
+
+START_TEST(memchr_2) {
+    char str2[] = "john.smith@microsoft.com";
+    ck_assert_pstr_eq(memchr(str2, 's', 6), s21_memchr(str2, 's', 6));
+}
+END_TEST
+
+START_TEST(memchr_3) {
+    char str3[] = {'q', 'r', 's', 't', 'w', '\0'};
+    ck_assert_pstr_eq(memchr(str3, 's', 5), s21_memchr(str3, 's', 5));
+}
+END_TEST
+
+START_TEST(memchr_empty_str) {
+    s21_size_t n_byte = 0;
+    char str[10] = "";
+    int find_byte = '\0';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_zero_in_string) {
+    s21_size_t n_byte = 7;
+    char str[10] = "string";
+    int find_byte = '\0';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_simbol_in_string_in_start) {
+    s21_size_t n_byte = 6;
+    char str[10] = "Atring";
+    int find_byte = 'A';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_simbol_in_string_in_end) {
+    s21_size_t n_byte = 7;
+    char str[10] = "StringA";
+    int find_byte = 'A';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_num_in_string_in_mid) {
+    s21_size_t n_byte = 15;
+    char str[16] = "Str55333222ingA";
+    int find_byte = '3';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_num_in_array_num) {
+    int array[] = {1, 2, 3, 666, 5, 99, 100};
+    s21_size_t n_byte = sizeof(int) * 7;
+    int find_byte = 666;
+    ck_assert_ptr_eq(s21_memchr(array, find_byte, n_byte),
+                     memchr(array, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_find_float_in_array) {
+    float array[] = {1, 2, 3, 666, 5, 99, 100};
+    s21_size_t n_byte = sizeof(float) * 7;
+    int find_byte = 666;
+    ck_assert_ptr_eq(s21_memchr(array, find_byte, n_byte),
+                     memchr(array, find_byte, n_byte));
+}
+END_TEST
+
+START_TEST(memchr_easy_test_string) {
+    s21_size_t n_byte = 5;
+    char str[10] = "aboba";
+    int find_byte = 'c';
+    ck_assert_ptr_eq(s21_memchr(str, find_byte, n_byte),
+                     memchr(str, find_byte, n_byte));
+}
+END_TEST
+
+/* ========== ТЕСТЫ ДЛЯ s21_memcmp ========== */
+
+START_TEST(memcmp_1) {
+    s21_size_t n1 = 3;
+    void *str_1_1 = "LUGANO!";
+    void *str_1_2 = "LUGANO!";
+    ck_assert_int_eq(memcmp(str_1_1, str_1_2, n1), s21_memcmp(str_1_1, str_1_2, n1));
+}
+END_TEST
+
+START_TEST(memcmp_2) {
+    s21_size_t n2 = 3;
+    void *str_2_1 = "LUGANO THE BEST!";
+    void *str_2_2 = "LU GANO OF THE BEST!!";
+    ck_assert_int_eq(memcmp(str_2_1, str_2_2, n2), s21_memcmp(str_2_1, str_2_2, n2));
+}
+END_TEST
+
+START_TEST(memcmp_3) {
+    s21_size_t n3 = 3;
+    void *str_3_1 = " LUGANO OF THE BEST!!";
+    void *str_3_2 = "LUGANO!";
+    ck_assert_int_eq(memcmp(str_3_1, str_3_2, n3), s21_memcmp(str_3_1, str_3_2, n3));
+}
+END_TEST
+
+START_TEST(memcmp_zero_byte) {
+    char str1[] = "aboba";
+    char str2[] = "aboba";
+    int n = 0;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_first_byte_in_string) {
+    char str1[] = "aboba";
+    char str2[] = "aboba";
+    int n = 3;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_register_test) {
+    char str1[] = "aboba";
+    char str2[] = "Aboba";
+    int n = 1;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_zero_byte_in_num) {
+    char str1[] = "1";
+    char str2[] = "1";
+    int n = 0;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_first_byte_in_num) {
+    char str1[] = "1";
+    char str2[] = "1234";
+    int n = 1;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_two_byte_in_num) {
+    char str1[] = "1234";
+    char str2[] = "1234";
+    int n = 2;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_two_byte_long_two_num) {
+    char str1[] = "13";
+    char str2[] = "1234";
+    int n = 2;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_two_byte_long_first_num) {
+    char str1[] = "134567";
+    char str2[] = "1234";
+    int n = 2;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_eq_long_string) {
+    char str1[] = "111111111111111111112312312312312312434524563567adsfe 4rafa ewfseASDASD";
+    char str2[] = "111111111111111111112312312312312312434524563567adsfe 4rafa ewfseASDASD";
+    int n = 71;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
+START_TEST(memcmp_not_eq_long_string) {
+    char str1[] = "111111111111111111112312312312312312434524563567adsfe 4rafa ewfseASDASD";
+    char str2[] = "111111111111111111112312312312312312434524563567adsfe 4rafa ewfseASDASd";
+    int n = 71;
+    ck_assert_int_eq(s21_memcmp(str1, str2, n), memcmp(str1, str2, n));
+}
+END_TEST
+
 /* ========== НАБОР ТЕСТОВ ========== */
 
 Suite *s21_string_test_suite(void) {
@@ -505,6 +703,34 @@ Suite *s21_string_test_suite(void) {
     tcase_add_test(tc, memcpy_long_string_with_register);
     tcase_add_test(tc, memcpy_long_string_with_register_and_num);
     tcase_add_test(tc, memcpy_long_string_with_register_and_num_and_simbol);
+
+    /* memchr */
+    tcase_add_test(tc, memchr_1);
+    tcase_add_test(tc, memchr_2);
+    tcase_add_test(tc, memchr_3);
+    tcase_add_test(tc, memchr_empty_str);
+    tcase_add_test(tc, memchr_find_zero_in_string);
+    tcase_add_test(tc, memchr_find_simbol_in_string_in_start);
+    tcase_add_test(tc, memchr_find_simbol_in_string_in_end);
+    tcase_add_test(tc, memchr_find_num_in_string_in_mid);
+    tcase_add_test(tc, memchr_find_num_in_array_num);
+    tcase_add_test(tc, memchr_find_float_in_array);
+    tcase_add_test(tc, memchr_easy_test_string);
+
+    /* memcmp */
+    tcase_add_test(tc, memcmp_1);
+    tcase_add_test(tc, memcmp_2);
+    tcase_add_test(tc, memcmp_3);
+    tcase_add_test(tc, memcmp_zero_byte);
+    tcase_add_test(tc, memcmp_first_byte_in_string);
+    tcase_add_test(tc, memcmp_register_test);
+    tcase_add_test(tc, memcmp_zero_byte_in_num);
+    tcase_add_test(tc, memcmp_first_byte_in_num);
+    tcase_add_test(tc, memcmp_two_byte_in_num);
+    tcase_add_test(tc, memcmp_two_byte_long_two_num);
+    tcase_add_test(tc, memcmp_two_byte_long_first_num);
+    tcase_add_test(tc, memcmp_eq_long_string);
+    tcase_add_test(tc, memcmp_not_eq_long_string);
 
     suite_add_tcase(s, tc);
     return s;
