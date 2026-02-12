@@ -15,7 +15,7 @@ char *s21_strncpy(char *dest, const char *src, s21_size_t n){
         dest[i] = src[i];
     }
 
-    for (i=0;i<n;i++){
+    for (;i<n;i++){
         dest[i] = '\0';
     }
 
@@ -31,4 +31,14 @@ void *s21_memset(void *str, int c, s21_size_t n) {
     }
     
     return str;
+}
+
+void *s21_memcpy(void *dest, const void *src, s21_size_t n){
+    unsigned char *d = (unsigned char *)dest;
+    const unsigned char *s = (const unsigned char *)src;
+
+    for(s21_size_t i = 0; i<n; i++){
+        d[i] = s[i];
+    }
+    return dest;
 }
