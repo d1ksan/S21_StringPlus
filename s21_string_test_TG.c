@@ -2540,10 +2540,10 @@ START_TEST(insert_test3) {
 } END_TEST
 
 START_TEST(insert_test4) {
-    char *src = s21_NULL;
-    char *str = s21_NULL;
+    char *src = S21_NULL;
+    char *str = S21_NULL;
     s21_size_t index = 100;
-    char *expected = s21_NULL;
+    char *expected = S21_NULL;
     char *got = (char *)s21_insert(src, str, index);
     ck_assert_ptr_eq(got, expected);
     if (got)
@@ -2562,7 +2562,7 @@ START_TEST(insert_test5) {
 } END_TEST
 
 START_TEST(insert_str_null) {
-    char *str = s21_NULL;
+    char *str = S21_NULL;
     char src[] = "Space  ";
     s21_size_t index = 0;
     char expected[] = "Space  ";

@@ -1,0 +1,1 @@
+gcc -Wall -Wextra -Werror s21_string.c s21_string_test2.c -o s21_string_test -lcheck -lm -lpthread -lrt -lsubunit
